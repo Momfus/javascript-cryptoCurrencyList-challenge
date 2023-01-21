@@ -1,96 +1,75 @@
 
-
 let cryptoData = [];
-let cryptoTable = '';
 
 $(document).ready( () => {
 
-   setupTable();
+   
    getData();
-});
 
-function setupTable() {
-   cryptoTable = $('#crypto-table').DataTable({
+   $('#crypto-table').DataTable({
       data: cryptoData,
       columns: [
-          { data: 'symbol' },
-          { data: 'baseAsset' },
-          { data: 'openPrice' },
-          { data: 'lowPrice' },
-          { data: 'highPrice' },
-          { data: 'lastPrice' },
-          { data: 'volume' }
+         { data: 'symbol' },
+         { data: 'baseAsset' },
+         { data: 'openPrice' },
+         { data: 'lowPrice' },
+         { data: 'highPrice' },
+         { data: 'lastPrice' },
+         { data: 'volume' }
       ],
-      "order": [[ 1, "asc" ]],
-  });
-}
+      columnDefs: [
+         { targets: [1,2,3,4,5,6], className: 'text-right' }
+      ],
+      pageLength: 10,
+      lengthMenu: [ [5, 10, 25], [5, 10, 25] ]
 
-function showHideLoadData( show, isDataFound ) {
+   });
 
-   if( isDataFound ) {
+   // add custom event filters
+   $('#searchBar').on('keyup', function() {
+      $('#crypto-table').DataTable().search(this.value).draw();
+   });
+   
 
-      $('#noDataFound').hide();
+   // Hide default search
+   $('.dataTables_filter').hide();
 
-      if( show ) {
-         $('#isDataLoading').hide();
-         $('#isDataLoaded').show();
-      } else {
-         $('#isDataLoading').show();
-         $('#isDataLoaded').hide();
-      }
+});
 
-   } else {
+
+function showHideLoadData( show ) {
+
+   $('#noDataFound').hide();
+
+   if( show ) {
       $('#isDataLoading').hide();
+      $('#isDataLoaded').show();
+   } else {
+      $('#isDataLoading').show();
       $('#isDataLoaded').hide();
-
-      $('#noDataFound').show();
-
    }
       
 }
 
 function getData() {
 
-   showHideLoadData(false, true);
+   showHideLoadData(false);
 
    $.ajax({
       url: "https://api.wazirx.com/sapi/v1/tickers/24hr",
       method: "GET",
       success: (data) => {
-        console.log(data); // TODO delete
-  
-        cryptoData = data;
-        cryptoTable.clear();
-        cryptoTable.rows.add(data);
-        cryptoTable.draw();
+         console.log(data); // TODO delete
 
-        showHideLoadData(true, cryptoData.length > 0);
-  
+         cryptoData = data;
+         showHideLoadData(true);
+
+         $('#crypto-table').DataTable().clear().rows.add(cryptoData).draw();
+
       },
       error: function(error) {
-        console.error(error);
+         console.error(error);
       }
-    });
-}
-
-function setupFilters() {
-   
-   $('#base-filter').on('keyup', function() {
-      cryptoTable.column(1).search(this.value).draw();
    });
-
-   $('#sort-filter').on('change', function() {
-      cryptoTable
-            .order([2, this.value])
-            .draw();
-   });
-
-   $('#order-filter').on('change', function() {
-      var column = cryptoTable.order()[0][0];
-      cryptoTable
-            .order([column, this.value])
-            .draw();
-   });
-
 }
 
