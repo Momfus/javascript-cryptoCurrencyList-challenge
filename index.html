@@ -2,15 +2,59 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="./public/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crypto Currency List Challenge</title>
+
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css"/>
+
   </head>
   <body>
+
+    <!-- Main body -->
     <div class="container">
       <h1>Crypto Currency List</h1>
+      <br>
+
+      <div id="isDataLoading">
+        <h2>Loading...</h2>
+      </div>
+
+      <div id="isDataLoaded" class="currencyData">
+        
+        <!-- Table data -->
+        <table id="crypto-table" class="display">
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Base Asset</th>
+              <th>Open Price</th>
+              <th>Low Price</th>
+              <th>High Price</th>
+              <th>Last Price</th>
+              <th>Volume</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+
+     
+
+
+      <div id="noDataFound">
+        <h2>No data found</h2>
+      </div>
+
+    
     </div>
 
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script>
     <script type="module" src="./main.js"></script>
+
   </body>
 </html>
