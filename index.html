@@ -35,22 +35,28 @@
 
         <!-- Filters -->
         <div class="row">
+
+          <!-- Searchbar -->
           <div class="col-md-4">
             <label for="searchBar">Search:</label>
             <input type="text" id="searchBar" class="form-control" placeholder="Enter base asset">
           </div>
+
+          <!-- Open Price sort -->
           <div class="col-md-4">
             <label for="openPriceSelect">Open Price:</label>
             <select id="openPriceSelect" class="form-control">
-              <option value="noFilter">No filter</option>
+              <option value="noSorting">No sorting</option>
               <option value="lowToHigh">Low to high</option>
               <option value="highToLow">High to low</option>
             </select>
           </div>
+
+          <!-- Base assets sort -->
           <div class="col-md-4">
             <label for="baseAssetSelect">Base Asset:</label>
             <select id="baseAssetSelect" class="form-control">
-              <option value="noFilter">No filter</option>
+              <option value="noSorting">No sorting</option>
               <option value="A-Z">A-Z</option>
               <option value="Z-A">Z-A</option>
             </select>

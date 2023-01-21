@@ -76,5 +76,10 @@ td.sorting_1 {
     flex-direction: column-reverse;
   }
 
+  i {
+    display: flex;
+    justify-content: center;
+  }
+
 }
 
