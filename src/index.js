@@ -23,13 +23,27 @@ $(document).ready( () => {
       pageLength: 10,
       lengthMenu: [ [5, 10, 25], [5, 10, 25] ]
 
-   });
+   })
+   // Add a function to add and fix the error to show when the sort column is asc or desc
+   .on('draw.dt', function () {
+ 
+      let sortedColumn = $(this).DataTable().order()[0][0];
+    
+      // Remove the icons if others columsn have
+      $('th i').remove();
+    
+      // Add arrow for asc or desc sort
+      if ($(this).DataTable().order()[0][1] === 'asc') {
+        $('th:eq(' + sortedColumn + ')').append('<i class="bi bi-arrow-down"></i>');
+      } else {
+        $('th:eq(' + sortedColumn + ')').append('<i class="bi bi-arrow-up"></i>');
+      }
+    });
 
    // add custom event filters
    $('#searchBar').on('keyup', function() {
       $('#crypto-table').DataTable().search(this.value).draw();
    });
-   
 
    // Hide default search
    $('.dataTables_filter').hide();

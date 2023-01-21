@@ -23,6 +23,22 @@
   text-align:center;
 }
 
+/* Fixing the sort column */
+table thead th:hover {
+  cursor: pointer;
+}
+
+th.sorting_asc,
+th.sorting_desc {
+  border: 1px solid gray;
+  border-bottom: none;
+}
+
+td.sorting_1 {
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  
+}
 
 
 /* Only for desktop */
