@@ -1,0 +1,66 @@
+<!-- Main body -->
+<div class="container my-4">
+
+<!-- Main body -->
+<div class="currencyData">
+
+   <!-- Filters -->
+   <div class="row">
+
+      <!-- Searchbar -->
+      <div class="col-md-4">
+      <label for="searchBar">Search by Base Asset:</label>
+      <input type="text" id="searchBar" class="form-control" placeholder="Enter a base asset">
+      </div>
+
+      <!-- Open Price sort -->
+      <div class="col-md-4">
+      <label for="openPriceSelect">Open Price:</label>
+      <select id="openPriceSelect" class="form-control">
+         <option value="noSorting">No sorting</option>
+         <option value="lowToHigh">Low to high</option>
+         <option value="highToLow">High to low</option>
+      </select>
+      </div>
+
+      <!-- Base assets sort -->
+      <div class="col-md-4">
+      <label for="baseAssetSelect">Base Asset:</label>
+      <select id="baseAssetSelect" class="form-control">
+         <option value="noSorting">No sorting</option>
+         <option value="A-Z">A-Z</option>
+         <option value="Z-A">Z-A</option>
+      </select>
+      </div>
+   </div>
+
+   <br>
+
+   <!-- Table data -->
+   <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+      <table id="crypto-table" class="table table-striped" >
+         <thead class="thead-light">
+            <tr>
+                  <th>Symbol</th>
+                  <th>Base Asset</th>
+                  <th>Open Price</th>
+                  <th>Last Price</th>
+                  <th>Percent Change</th>
+                  <th>High Price</th>
+                  <th>Low Price</th>
+                  <th>Volume</th>
+            </tr>
+         </thead>
+         
+         <tbody>
+         </tbody>
+
+      </table>
+      </div>
+   </div>
+
+
+</div>
+
+</div>

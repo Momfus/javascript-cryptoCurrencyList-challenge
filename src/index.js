@@ -5,64 +5,8 @@ const baseAssetSelect = document.getElementById('baseAssetSelect');
 
 $(document).ready( () => {
 
-
    getData();
-
-   const table = $('#crypto-table').DataTable({
-      data: cryptoData,
-      responsive: true,
-      columns: [
-         { data: 'symbol' },
-         { data: 'baseAsset' },
-         { data: 'openPrice' },
-         { data: 'lastPrice' },
-         { data: 'changePercent'},
-         { data: 'highPrice' },
-         { data: 'lowPrice' },
-         { data: 'volume' }
-      ],
-      columnDefs: [
-         { targets: [1,2,3,4,5], className: 'text-right' }
-      ],
-      pageLength: 10,
-      lengthMenu: [ [5, 10, 25], [5, 10, 25] ]
-
-   });
-
-   // Link sort filters with column functions
-   table.on('draw.dt', function () {
-
-      // Check for the colums to sort
-      let sortedColumn = $(this).DataTable().order()[0][0];
-      let typeSort = 'asc';
-      setSortSelectValues(sortedColumn, typeSort);
-
-      // Add the correct class color for percent change
-      $('#crypto-table tbody tr').each(function () {
-         const row = $(this);
-         const rowData = table.row(row).data();
-      
-         if( rowData.isPositive ) {
-            $(this).find('td:nth-child(5)').addClass('text-success');
-         } else {
-            $(this).find('td:nth-child(5)').addClass('text-danger');
-         }
-      });
-  
-   });
-
-   
-   // add custom event filters
-   $('#searchBar').on('keyup', function() {
-      $('#crypto-table').DataTable().search(this.value).draw();
-   });
-
-   openPriceSelect.addEventListener('change', sortOpenPrice);
-   baseAssetSelect.addEventListener('change', sortBaseAsset);
-
-   // Hide default search
-   $('.dataTables_filter').hide();
-
+   setTable();
 
 });
 
@@ -92,40 +36,84 @@ function setSortSelectValues( columnIndex, typeSortString ) {
    }
 }
 
-function showHideLoadData( show ) {
-
-   $('#noDataFound').hide();
-
-   if( show ) {
-      $('#isDataLoading').hide();
-      $('#isDataLoaded').show();
-   } else {
-      $('#isDataLoading').show();
-      $('#isDataLoaded').hide();
-   }
-      
-}
-
 function getData() {
 
-   showHideLoadData(false);
 
    $.ajax({
       url: 'https://api.wazirx.com/sapi/v1/tickers/24hr',
       method: 'GET',
+      beforeSend: function() {
+         $('.spinner').show();
+       },
       success: (data) => {
          cryptoData = setFormatData(data);
-         showHideLoadData(true);
+
+         $('#spinner').hide();
+         $('#main').removeClass('hidden');
 
          $('#crypto-table').DataTable().clear().rows.add(cryptoData).draw();
 
       },
-      error: function(error) {
+      error: (error) => {
          console.error(error);
       }
    });
 }
 
+function setTable() {
+   
+   const table = $('#crypto-table').DataTable({
+      data: cryptoData,
+      responsive: true,
+      columns: [
+         { data: 'symbol' },
+         { data: 'baseAsset' },
+         { data: 'openPrice' },
+         { data: 'lastPrice' },
+         { data: 'changePercent'},
+         { data: 'highPrice' },
+         { data: 'lowPrice' },
+         { data: 'volume' }
+      ],
+      columnDefs: [
+         { targets: [1,2,3,4,5], className: 'text-right' }
+      ],
+      pageLength: 10,
+      lengthMenu: [ [5, 10, 25], [5, 10, 25] ],
+      createdRow: (row, data ) => {
+         // aqui puedes acceder a cada celda de la fila creada y aplicar la clase CSS correspondiente
+         if(data.isPositive) {
+           $(row).find('td:nth-child(5)').addClass('text-success');
+         } else {
+           $(row).find('td:nth-child(5)').addClass('text-danger');
+         }
+       }
+
+   });
+
+   // Link sort filters with column functions
+   table.on('draw.dt', () => {
+
+      // Check for the colums to sort
+      let sortedColumn = table.order()[0][0];
+      let typeSort = 'asc';
+      setSortSelectValues(sortedColumn, typeSort);
+  
+   });
+
+   
+   // add custom event filters
+   $('#searchBar').on('keyup', (event) => {
+      $('#crypto-table').DataTable().column(1).search(event.target.value).draw();
+    });
+
+   openPriceSelect.addEventListener('change', sortOpenPrice);
+   baseAssetSelect.addEventListener('change', sortBaseAsset);
+
+   // Hide default search
+   $('.dataTables_filter').hide();
+
+}
 
 function sortOpenPrice() {
 
