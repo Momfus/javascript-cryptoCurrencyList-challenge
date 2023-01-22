@@ -8,32 +8,47 @@ $(document).ready( () => {
 
    getData();
 
-   $('#crypto-table').DataTable({
+   const table = $('#crypto-table').DataTable({
       data: cryptoData,
+      responsive: true,
       columns: [
          { data: 'symbol' },
          { data: 'baseAsset' },
          { data: 'openPrice' },
-         { data: 'lowPrice' },
-         { data: 'highPrice' },
          { data: 'lastPrice' },
-         { data: 'askPrice' },
-         { data: 'bidPrice' },
+         { data: 'changePercent'},
+         { data: 'highPrice' },
+         { data: 'lowPrice' },
          { data: 'volume' }
       ],
       columnDefs: [
-         { targets: [1,2,3,4,5,6], className: 'text-right' }
+         { targets: [1,2,3,4,5], className: 'text-right' }
       ],
       pageLength: 10,
       lengthMenu: [ [5, 10, 25], [5, 10, 25] ]
 
-   })
-   // Link sort filters with column functions
-   .on('draw.dt', function () {
+   });
 
+   // Link sort filters with column functions
+   table.on('draw.dt', function () {
+
+      // Check for the colums to sort
       let sortedColumn = $(this).DataTable().order()[0][0];
       let typeSort = 'asc';
       setSortSelectValues(sortedColumn, typeSort);
+
+      // Add the correct class color for percent change
+      $('#crypto-table tbody tr').each(function () {
+         const row = $(this);
+         const rowData = table.row(row).data();
+      
+         if( rowData.isPositive ) {
+            $(this).find('td:nth-child(5)').addClass('text-success');
+         } else {
+            $(this).find('td:nth-child(5)').addClass('text-danger');
+         }
+      });
+  
    });
 
    
@@ -47,6 +62,7 @@ $(document).ready( () => {
 
    // Hide default search
    $('.dataTables_filter').hide();
+
 
 });
 
@@ -98,8 +114,6 @@ function getData() {
       url: 'https://api.wazirx.com/sapi/v1/tickers/24hr',
       method: 'GET',
       success: (data) => {
-         console.log(data); // TODO delete
-
          cryptoData = setFormatData(data);
          showHideLoadData(true);
 
@@ -170,8 +184,47 @@ function sortBaseAsset() {
 }
 
 function setFormatData(data) {
+   return data.map(item => {
 
-   
+      const diff = (item.lastPrice - item.openPrice);
 
-   return data;
+      const changePercent = (diff / item.openPrice * 100).toFixed(4);
+      
+      const isPositive =  (diff >= 0 )? true : false;
+      const signSymbol = (isPositive )? '▲': '▼';
+
+      let newData = {
+         symbol: splitSymbolFormat(item.symbol, item.baseAsset),
+         baseAsset: item.baseAsset,
+         openPrice: toScientificNotation(item.openPrice),
+         lastPrice: toScientificNotation(item.lastPrice),
+         lowPrice: toScientificNotation(item.lowPrice),
+         highPrice: toScientificNotation(item.highPrice),
+         askPrice: toScientificNotation(item.askPrice),
+         bidPrice: toScientificNotation(item.bidPrice),
+         volume: toScientificNotation(item.volume),
+         isPositive,
+         changePercent: signSymbol + ' ' + changePercent + '%'
+       };
+
+       return newData;
+   });
+}
+
+function toScientificNotation(number, dataLenght = 6){
+   if(number.length >= dataLenght) {
+      return parseFloat(number).toExponential();
+   } else {
+      return number;
+   }
+}
+
+
+function splitSymbolFormat(symbol, baseAsset) {
+
+   return symbol.replace(baseAsset, baseAsset + ' / ');
+}
+
+function isOutOfRange(number, limit) {
+   return (number > limit || number < 1 / limit);
 }

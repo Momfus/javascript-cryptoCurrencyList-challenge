@@ -2,10 +2,15 @@
 /* General */
 * {
   font-family: Helvetica;
+  color: #6F536F;
 }
 
-html, body {
+html {
   background: linear-gradient(180deg, #F2F0EF 0%, #DBDBD9 100%);;
+}
+
+body {
+  background-color: transparent;
 }
 
 /* Main */
@@ -17,6 +22,7 @@ html, body {
 #crypto-table, td {
   width: 100% !important;
   border-bottom: 0;
+  word-wrap: break-word;
 }
 
 #crypto-table_wrapper > div.row:nth-of-type(2) {
@@ -51,18 +57,32 @@ table.dataTable tfoot th {
 th.sorting_asc,
 th.sorting_desc,
 td.sorting_1 {
-  border-left: 1px solid gray;
-  border-right: 1px solid gray;
+  background-color: rgba(0, 0, 0, 0.1);
 }
+
+
 
 ul.pagination li {
   padding: 0 !important;
   margin: 0px !important;
   border: none !important;
+  --bs-pagination-color: #6F536F;
 }
+
 
 .page-link:focus {
   box-shadow: none;
+}
+
+.page-link:hover {
+  color: #6F536F;
+}
+
+.active>.page-link, .page-link.active {
+  color: white;
+  background-color: #6F536F;
+  border: none;
+
 }
 
 .page-item:hover, .page-item:active {
@@ -78,6 +98,21 @@ ul.pagination li {
 select.form-select {
   background-color: white !important;
 }
+
+select.form-select:focus, .form-control:focus {
+  box-shadow: 0 0 0 0.25rem rgb(111 83 111 / 25%);
+  border-color: #6F536F;
+}
+
+/* Miscellaneous */
+.text-danger {
+  color: red;
+}
+
+.text-success {
+  color: green;
+}
+
 
 /* Only for desktop */
 @media (min-width: 999px) {
@@ -103,9 +138,8 @@ select.form-select {
   html {
     height: 100vh;
   }
-  body {
-    height: 97%;
-  }
+
+
 }
 
 /*Only for small devices */
@@ -124,10 +158,11 @@ select.form-select {
   html {
     height: 112vh;
   }
+
   body {
     height: 100%;
   }
-  
+
 
 }
 
