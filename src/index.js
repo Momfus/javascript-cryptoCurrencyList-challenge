@@ -8,7 +8,6 @@ $(document).ready( () => {
 
    getData();
 
-   // Set table properties
    $('#crypto-table').DataTable({
       data: cryptoData,
       columns: [
@@ -18,6 +17,8 @@ $(document).ready( () => {
          { data: 'lowPrice' },
          { data: 'highPrice' },
          { data: 'lastPrice' },
+         { data: 'askPrice' },
+         { data: 'bidPrice' },
          { data: 'volume' }
       ],
       columnDefs: [
@@ -26,7 +27,15 @@ $(document).ready( () => {
       pageLength: 10,
       lengthMenu: [ [5, 10, 25], [5, 10, 25] ]
 
+   })
+   // Link sort filters with column functions
+   .on('draw.dt', function () {
+
+      let sortedColumn = $(this).DataTable().order()[0][0];
+      let typeSort = 'asc';
+      setSortSelectValues(sortedColumn, typeSort);
    });
+
    
    // add custom event filters
    $('#searchBar').on('keyup', function() {
@@ -91,7 +100,7 @@ function getData() {
       success: (data) => {
          console.log(data); // TODO delete
 
-         cryptoData = data;
+         cryptoData = setFormatData(data);
          showHideLoadData(true);
 
          $('#crypto-table').DataTable().clear().rows.add(cryptoData).draw();
@@ -160,3 +169,9 @@ function sortBaseAsset() {
    $('#crypto-table').DataTable().order([1, orderType]).draw();
 }
 
+function setFormatData(data) {
+
+   
+
+   return data;
+}

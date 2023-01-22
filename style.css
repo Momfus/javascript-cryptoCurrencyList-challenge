@@ -1,17 +1,28 @@
 
+/* General */
 * {
   font-family: Helvetica;
 }
 
-.currencyData {
-
-  display: none;
-
+html, body {
+  background: linear-gradient(180deg, #F2F0EF 0%, #DBDBD9 100%);;
 }
 
+/* Main */
+.currencyData {
+  display: none;
+}
 
-#crypto-table {
+/* Table style */
+#crypto-table, td {
   width: 100% !important;
+  border-bottom: 0;
+}
+
+#crypto-table_wrapper > div.row:nth-of-type(2) {
+  background-color: white;
+  padding: 2em 0;
+  border-radius: 20px
 }
 
 #crypto-table th {
@@ -23,10 +34,18 @@
   text-align:center;
 }
 
-/* Table style */
+
 th {
-  
   vertical-align: middle;
+}
+
+table.dataTable thead th {
+  border-bottom: none;
+}
+
+table.dataTable tfoot th {
+  border-top: none;
+  border-bottom: 1px solid  #111;
 }
 
 th.sorting_asc,
@@ -34,7 +53,6 @@ th.sorting_desc,
 td.sorting_1 {
   border-left: 1px solid gray;
   border-right: 1px solid gray;
-  
 }
 
 ul.pagination li {
@@ -57,8 +75,12 @@ ul.pagination li {
   margin-bottom: 1em;
 }
 
+select.form-select {
+  background-color: white !important;
+}
+
 /* Only for desktop */
-@media (min-width: 769px) {
+@media (min-width: 999px) {
   #crypto-table {
     table-layout: fixed;
   }
@@ -77,10 +99,17 @@ ul.pagination li {
     display: flex;
     justify-content: end;
   }
+
+  html {
+    height: 100vh;
+  }
+  body {
+    height: 97%;
+  }
 }
 
 /*Only for small devices */
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
 
   
   #crypto-table_wrapper > div.row:nth-of-type(2) {
@@ -92,6 +121,13 @@ ul.pagination li {
     flex-direction: column-reverse;
   }
 
+  html {
+    height: 112vh;
+  }
+  body {
+    height: 100%;
+  }
+  
 
 }
 
