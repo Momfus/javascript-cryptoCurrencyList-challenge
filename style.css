@@ -23,23 +23,39 @@
   text-align:center;
 }
 
-/* Fixing the sort column */
-table thead th:hover {
-  cursor: pointer;
+/* Table style */
+th {
+  
+  vertical-align: middle;
 }
 
 th.sorting_asc,
-th.sorting_desc {
-  border: 1px solid gray;
-  border-bottom: none;
-}
-
+th.sorting_desc,
 td.sorting_1 {
   border-left: 1px solid gray;
   border-right: 1px solid gray;
   
 }
 
+ul.pagination li {
+  padding: 0 !important;
+  margin: 0px !important;
+  border: none !important;
+}
+
+.page-link:focus {
+  box-shadow: none;
+}
+
+.page-item:hover, .page-item:active {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+#crypto-table_length {
+  display: flex;
+  margin-bottom: 1em;
+}
 
 /* Only for desktop */
 @media (min-width: 769px) {
@@ -76,10 +92,6 @@ td.sorting_1 {
     flex-direction: column-reverse;
   }
 
-  i {
-    display: flex;
-    justify-content: center;
-  }
 
 }
 
