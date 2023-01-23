@@ -4,11 +4,11 @@ $(document).ready(() => {
 
    loadStyle('spinner');
 
-   $('#spinner').load('./public/src/spinner.html');
-   $('#main').load('./public/src/main.html', () => {
+   $('#spinner').load('./src/spinner.html');
+   $('#main').load('./src/main.html', () => {
 
       loadStyle('table');
-      $.getScript( './public/src/index.js');
+      $.getScript( './src/index.js');
       
    });
  });
@@ -21,7 +21,7 @@ $(document).ready(() => {
  function loadStyle(styleName) {
    
    const link = document.createElement("link");
-   link.href = `./public/src/styles/${styleName}.css`;
+   link.href = `./src/styles/${styleName}.css`;
    link.type = 'text/css';
    link.rel = 'stylesheet';
    document.getElementsByTagName('head')[0].appendChild(link);
