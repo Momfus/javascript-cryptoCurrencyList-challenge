@@ -10,6 +10,10 @@
   },
   "devDependencies": {
     "cpx": "^1.5.0",
+    "rollup-plugin-terser": "^7.0.2",
     "vite": "^4.0.0"
+  },
+  "dependencies": {
+    "rollup-plugin-minify-es": "^1.1.1"
   }
 }
