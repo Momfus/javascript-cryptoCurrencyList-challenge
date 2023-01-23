@@ -8,7 +8,7 @@ $(document).ready(() => {
    $('#main').load('./src/main.html', () => {
 
       loadStyle('table');
-      $.getScript( './src/index.js');
+      $.getScript( './src/main.js');
       
    });
  });
