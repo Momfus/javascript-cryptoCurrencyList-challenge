@@ -46,7 +46,7 @@
    padding: 0 !important;
    margin: 0px !important;
    border: none !important;
-   --bs-pagination-color: #6F536F;
+   --bs-pagination-color: var(--mainColor);
  }
  
  
@@ -55,12 +55,12 @@
  }
  
  .page-link:hover {
-   color: #6F536F;
+   color: var(--mainColor);
  }
  
  .active>.page-link, .page-link.active {
    color: white;
-   background-color: #6F536F;
+   background-color: var(--mainColor);
    border: none;
  
  }
@@ -81,7 +81,7 @@
  
  select.form-select:focus, .form-control:focus {
    box-shadow: 0 0 0 0.25rem rgb(111 83 111 / 25%);
-   border-color: #6F536F;
+   border-color: var(--mainColor);
  }
  
  /* Miscellaneous */

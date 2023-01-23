@@ -1,8 +1,12 @@
 
+:root {
+  --mainColor: #6F536F;
+}
+
 /* General */
 * {
   font-family: Helvetica;
-  color: #6F536F;
+  color: var(--mainColor);
 }
 
 html {
@@ -17,6 +21,28 @@ body {
   display: none;
 }
 
+.page-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  
+  width: 100%;
+  background-color: var(--mainColor);
+  color: white;
+}
+
+footer {
+    background-color: var(--mainColor);
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+}
+
+p.smallText {
+  color: white;
+}
 
 
 /* Only for desktop */
