@@ -10,6 +10,11 @@ $(document).ready( () => {
 
 });
 
+/**
+ * Change the select filters to sort with the table
+ * @param {number} columnIndex 
+ * @param {string} typeSortString 
+ */
 function setSortSelectValues( columnIndex, typeSortString ) {
    if( columnIndex === 1 ) {
 
@@ -36,6 +41,9 @@ function setSortSelectValues( columnIndex, typeSortString ) {
    }
 }
 
+/**
+ * Get the data from the api for crypto currency information
+ */
 function getData() {
 
 
@@ -60,6 +68,9 @@ function getData() {
    });
 }
 
+/**
+ * Create a DataTable object and set some initial attributes and added some extra functions
+ */
 function setTable() {
    
    const table = $('#crypto-table').DataTable({
@@ -115,6 +126,9 @@ function setTable() {
 
 }
 
+/**
+ * Sort the table based on the open price
+ */
 function sortOpenPrice() {
 
    const selectedValue = openPriceSelect.value;
@@ -143,6 +157,9 @@ function sortOpenPrice() {
    $('#crypto-table').DataTable().order([2, orderType]).draw();
 }
 
+/**
+ * Sort the table based on the base asset
+ */
 function sortBaseAsset() {
 
    const selectedValue = baseAssetSelect.value;
@@ -171,6 +188,11 @@ function sortBaseAsset() {
    $('#crypto-table').DataTable().order([1, orderType]).draw();
 }
 
+/**
+ * Set the format from the given data and add new values to show in the table
+ * @param {array[any]} data 
+ * @returns 
+ */
 function setFormatData(data) {
    return data.map(item => {
 
@@ -199,6 +221,12 @@ function setFormatData(data) {
    });
 }
 
+/**
+ * Check if is necesary to change the number given to an scientific notation
+ * @param {number} number 
+ * @param {number} dataLenght 
+ * @returns {number}
+ */
 function toScientificNotation(number, dataLenght = 6){
    if(number.length >= dataLenght) {
       return parseFloat(number).toExponential();
@@ -207,12 +235,13 @@ function toScientificNotation(number, dataLenght = 6){
    }
 }
 
-
+/**
+ * Formaty the symbol with the baseAsset separate from the original string
+ * @param {string} symbol 
+ * @param {string} baseAsset 
+ * @returns 
+ */
 function splitSymbolFormat(symbol, baseAsset) {
 
    return symbol.replace(baseAsset, baseAsset + ' / ');
-}
-
-function isOutOfRange(number, limit) {
-   return (number > limit || number < 1 / limit);
 }
